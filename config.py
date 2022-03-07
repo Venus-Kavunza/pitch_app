@@ -1,30 +1,39 @@
-from app import create_app,db
-from flask_script import Manager,Server
-from  flask_migrate import Migrate, MigrateCommand
+from multiprocessing import Manager
+import os
 
-from app.models import User,Pitch,Upvote,Downvote,Comment
+class Config:
 
-# Creating app instance
-app = create_app('development')
-# app = create_app('production')
-# app = create_app('test')
+    SECRET_KEY = os.environ.get('muya')
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Venusstudy03.@localhost/pitch'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
+    #  email configurations
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+    SIMPLEMDE_JS_IIFE = True
+    SIMPLEMDE_USE_CDN = True
 
-
-manager = Manager(app)
-manager.add_command('server',Server)
-
-migrate = Migrate(app,db)
-manager.add_command('db',MigrateCommand)
-
-@manager.command
-def test():
-    """Run the unit tests."""
-    import unittest
-    tests = unittest.TestLoader().discover('tests')
-    unittest.TextTestRunner(verbosity=2).run(tests)
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Venusstudy03.@localhost/pitches_test'
+    DEBUG = True
     
-@manager.shell
-def make_shell_context():
-    return dict(app = app,db = db,User=User,Pitch=Pitch,Upvote=Upvote,Downvote=Downvote,Comment=Comment)
-if __name__ == '__main__':
-    manager.run()
+class ProdConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    if SQLALCHEMY_DATABASE_URI and SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
+
+    pass
+
+class DevConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Venusstudy03.@localhost/pitch'
+    DEBUG = True
+
+config_options = {
+'development':DevConfig,
+'production':ProdConfig,
+'test':TestConfig
+}
+
