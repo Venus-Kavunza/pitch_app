@@ -1,0 +1,24 @@
+from app.models import Pitch,User
+from app import db
+import unittest
+
+class PitchTest(unittest.TestCase):
+
+    def setUp(self):
+        self.user_Venus = User(username = 'venus',password = 'test', email = 'venus@gmail.com')
+        self.new_pitch = Pitch(title="Money",post= "Advertise good products",category="Product",user = self.user_Venus )
+            
+    def tearDown(self):
+        Pitch.query.delete()
+        User.query.delete()
+            
+    def test_check_instance_variables(self):
+        self.assertEquals(self.new_pitch.title,"Money")
+        self.assertEquals(self.new_pitch.post,"Advertise good products")
+        self.assertEquals(self.new_pitch.category,"Product")
+        self.assertEquals(self.new_pitch.user,self.user_Venus)
+        
+    def test_save_pitch(self):
+        self.new_pitch.save_review()
+        self.assertTrue(len(Pitch.query.all())>0)
+        
