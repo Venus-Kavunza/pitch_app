@@ -13,7 +13,7 @@
           <div>
             <span class="pl-3"><a href="{{url_for('main.upvote',id = pitch.id)}}"> <img src="{{url_for('static', filename='photos/like.png')}}" alt=""
               class="icon"></a> {{pitch.upvote.count()}}</span>
-            <span class="pl-3"><a class="text-dark" href="{{url_for('main.downvote',id = pitch.id)}}"> <img src="{{url_for('static', filename='photos/dislike.png')}}" alt=""
+            <span class="pl-3"><a class="text-dark" href="{{url_for('main.downvote',id = pitch.id)}}"> <img src="{{url_for('static', filename='photos/dislike-icon-vector-21641402.jpg')}}" alt=""
               class="icon"> {{pitch.downvote.count()}}</a></span>
             <span class="pl-4"><a href="{{url_for('main.comment',pitch_id = pitch.id)}}" class="btn btn-outline-primary btn-sm"> Comment</a></span>
           </div><br>
