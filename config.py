@@ -1,9 +1,8 @@
-from multiprocessing import Manager
 import os
 
 class Config:
 
-    SECRET_KEY = os.environ.get('muya')
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Venusstudy03.@localhost/pitch'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOADED_PHOTOS_DEST ='app/static/photos'
@@ -16,24 +15,20 @@ class Config:
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
 
-class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Venusstudy03.@localhost/pitches_test'
-    DEBUG = True
+
     
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
-    if SQLALCHEMY_DATABASE_URI and SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
-        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
+    # SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    # if SQLALCHEMY_DATABASE_URI and SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+    #     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
 
     pass
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:Venusstudy03.@localhost/pitch'
     DEBUG = True
 
 config_options = {
 'development':DevConfig,
-'production':ProdConfig,
-'test':TestConfig
+'production':ProdConfig
 }
 
