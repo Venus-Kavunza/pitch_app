@@ -14,15 +14,14 @@ This is an application that allows users to submit their pitches. The other user
 
 
 ## Live link
-
-## Installation
-### Requirements
-* python3.8
-* pip 
+https://pitcheapp.herokuapp.com/
+## Installation Requirements
+- python3.8
+- pip 
 
 ### Installation process
-* Open terminal
-* run `git clone https://github.com/Venus-Kavunza/pitch_app.git`
+- Open terminal
+- run `git clone https://github.com/Venus-Kavunza/pitch_app.git`
 
 ### Dependancy Installation process
 ```
