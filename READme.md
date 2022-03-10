@@ -14,7 +14,7 @@ This is an application that allows users to submit their pitches. The other user
 
 
 ## Live link
-https://pitcheapp.herokuapp.com/
+https://pitche-app.herokuapp.com
 ## Installation Requirements
 - python3.8
 - pip 
